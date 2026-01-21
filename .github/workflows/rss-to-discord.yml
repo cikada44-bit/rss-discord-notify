@@ -1,0 +1,32 @@
+name: RSS to Discord
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # 15分ごとに実行
+  workflow_dispatch:
+
+jobs:
+  rss:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install feedparser requests
+
+      - name: Run script
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python scripts/fetch_and_post.py
+
+      - name: Save seen cache
+        uses: actions/upload-artifact@v4
+        with:
+          name: seen-cache
+          path: data/seen.json
