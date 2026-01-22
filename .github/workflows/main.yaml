@@ -1,9 +1,9 @@
 name: RSS to Discord
 
 on:
-  schedule:
-    - cron: "*/15 * * * *"   # 15分ごとに実行
   workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
 
 jobs:
   rss:
@@ -13,6 +13,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Debug file tree
+        run: ls -R .
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -26,9 +29,3 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: python scripts/fetch_and_post.py
-
-      - name: Save seen cache
-        uses: actions/upload-artifact@v4
-        with:
-          name: seen-cache
-          path: data/seen.json
