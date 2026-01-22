@@ -9,6 +9,8 @@ RSS_FEEDS = [
     "https://www.reddit.com/r/StableDiffusion/.rss",
     "https://huggingface.co/blog/feed.xml",
     "https://github.com/comfyanonymous/ComfyUI/releases.atom",
+    "https://civitai.com/api/rss/models?sort=Newest",
+    "https://note.com/hashtag/ComfyUI/rss",
 ]
 
 SEEN_FILE = Path("data/seen.json")
@@ -43,3 +45,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
