@@ -11,9 +11,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Debug file tree
-        run: ls -R .
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
