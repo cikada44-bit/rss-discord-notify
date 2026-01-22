@@ -11,6 +11,7 @@ RSS_FEEDS = [
     "https://github.com/comfyanonymous/ComfyUI/releases.atom",
     "https://civitai.com/api/rss/models?sort=Newest",
     "https://civitai.com/api/v1/models?types=checpoint&nsfw=true&token=5b182d04bf7467cdb49e2ff5667ba621&feed.xml",
+    "https://civitai.com/api/rss/models?sort=Newest",
 ]
 
 SEEN_FILE = Path("data/seen.json")
@@ -45,6 +46,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
