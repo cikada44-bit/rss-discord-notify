@@ -10,7 +10,6 @@ RSS_FEEDS = [
     "https://huggingface.co/blog/feed.xml",
     "https://github.com/comfyanonymous/ComfyUI/releases.atom",
     "https://civitai.com/api/rss/models?sort=Newest",
-    "https://civitai.com/api/v1/models?types=LORA&feed.xml",
 ]
 
 SEEN_FILE = Path("data/seen.json")
@@ -45,6 +44,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
