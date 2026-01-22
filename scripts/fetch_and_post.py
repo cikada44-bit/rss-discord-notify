@@ -26,8 +26,18 @@ def save_seen(seen):
     SEEN_FILE.parent.mkdir(exist_ok=True)
     SEEN_FILE.write_text(json.dumps(seen, indent=2))
 
-def send_to_discord(title, link):
-    payload = {"content": f"**{title}**\n{link}"}
+def send_embed_to_discord(title, link, summary):
+    # 本文はコードブロック化して翻訳対象外にする
+    description = f"```\n{summary[:1500]}\n```"  # Discord の制限に合わせて長さ調整
+
+    embed = {
+        "title": title,
+        "url": link,
+        "description": description,
+        "color": 0x00AEEF,  # 好きな色に変更可能
+    }
+
+    payload = {"embeds": [embed]}
     requests.post(WEBHOOK, json=payload)
 
 def main():
@@ -39,16 +49,14 @@ def main():
         for entry in feed.entries:
             uid = entry.get("id") or entry.get("link")
             if uid not in seen:
-                send_to_discord(entry.title, entry.link)
+                title = entry.title
+                link = entry.link
+                summary = entry.get("summary", "No description available.")
+
+                send_embed_to_discord(title, link, summary)
                 new_seen.add(uid)
 
     save_seen(list(new_seen))
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
